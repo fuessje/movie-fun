@@ -29,14 +29,14 @@ import java.util.List;
 @Repository
 public class MoviesBean {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "moviesdb")
     private EntityManager entityManager;
-
+    @Transactional
     public Movie find(Long id) {
         return entityManager.find(Movie.class, id);
     }
 
-    @Transactional
+
     public void addMovie(Movie movie) {
         entityManager.persist(movie);
     }
@@ -51,7 +51,7 @@ public class MoviesBean {
         entityManager.remove(movie);
     }
 
-    @Transactional
+
     public void deleteMovieId(long id) {
         Movie movie = entityManager.find(Movie.class, id);
         deleteMovie(movie);
